@@ -1,3 +1,4 @@
+alias aa='screen -e ^]] -dR'
 alias less='less --RAW-CONTROL-CHARS' # enable ANSI color control characters in files
 alias ls='ls -G'
 alias l='ls -lFhG'
@@ -13,6 +14,7 @@ alias del='rm -i'
 
 # git aliases
 alias gits='git status'
+alias gitst='git status --untracked-files=no'
 alias gitd='git diff --color-words | fold'
 
 
