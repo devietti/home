@@ -1,0 +1,48 @@
+#!/usr/bin/python
+
+import subprocess, sys, time, argparse, numpy
+
+parser = argparse.ArgumentParser(description='Run a command N times')
+
+parser.add_argument('-n', '--iters', metavar='N', type=int, default=1,
+                   help='number of iterations to run')
+parser.add_argument('-l', '--log', type=argparse.FileType('a+'),
+                    help='append timing information to this file')
+parser.add_argument('cmd', nargs=argparse.REMAINDER)
+
+args = parser.parse_args()
+
+times = []
+
+print args.cmd
+fd = args.log
+if fd is None:
+    fd = open("/dev/stdout", "w")
+    pass
+fd.write( str(args.cmd) + '\n' )
+
+for _ in range( args.iters ):
+    start = time.time()
+    subprocess.check_call( " ".join(args.cmd), shell=True )
+    end = time.time()
+    t = end-start
+    times.append( t )
+    fd.write( str(t) + ', ' )
+    fd.flush()
+    pass
+
+fd.write( '\n' )
+data = {}
+data['average'] = sum(times) / len(times)
+data['stddev'] = numpy.std(numpy.array(times))
+
+mmtimes = sorted(times)
+if len(mmtimes) > 2:
+    mmtimes = mmtimes[1:-1]
+    data['average discarding max/min'] = sum(mmtimes) / len(mmtimes)
+    data['stddev discarding max/min'] = numpy.std(numpy.array(mmtimes))
+    pass
+
+fd.write(repr(data))
+fd.write( "\n" )
+fd.close()

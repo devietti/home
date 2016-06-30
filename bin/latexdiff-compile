@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+
+import subprocess, sys
+
+if len(sys.argv) != 2:
+    print "Run pdflatex and bibtex on a given .tex file. Useful for compiling output of latexdiff"
+    print "Usage: %s <tex-file>"
+    sys.exit(0)
+
+texFile = sys.argv[1]
+assert texFile.endswith(".tex")
+
+subprocess.check_call("pdflatex %s" % texFile, shell=True)
+subprocess.check_call("pdflatex %s" % texFile, shell=True)
+subprocess.check_call("bibtex %s" % texFile[:-4], shell=True)
+subprocess.check_call("pdflatex %s" % texFile, shell=True)
+subprocess.check_call("pdflatex %s" % texFile, shell=True)
