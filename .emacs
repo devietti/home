@@ -25,10 +25,13 @@
 ;; death to tabs!!!
 (setq-default indent-tabs-mode nil)
 
-;; TODO: figure out why require doesn't work, whether load-file makes emacs launch slow 
-(load-file "/Users/devietti/.emacs.d/elisp/ottmode.el")
-;(setq load-path (cons (expand-file-name "/Users/devietti/.emacs.d/elisp/") load-path))
-;(require ’ottmode)
+;; pull in special modes
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
+(require 'ottmode)
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
 ;; this is usually only loaded when you open a .py file, but we want python-mode
 ;; for looking at various other python-syntax configuration files
