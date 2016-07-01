@@ -21,8 +21,11 @@ shopt -s checkwinsize
 if [ "$UID" -eq "0" ]  # Will the real "root" please stand up?
 then
   export PS1="\[\e[0;33m\e[41m\]\u@\h: \W#\[\e[0m\] "
+elif [ "$USER" = "devietti" ]
+then
+  export PS1="\[\e[0;33m\]d@\h:\W\$\[\e[0m\] "
 else
-  export PS1="\[\e[0;33m\]\h:\W\$\[\e[0m\] "
+  export PS1="\[\e[43m\e[0;34m\]\u@\h:\W\$\[\e[0m\] "
 fi
 
 
