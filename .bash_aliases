@@ -1,8 +1,8 @@
 alias aa='screen -e ^]] -dR'
 alias less='less --RAW-CONTROL-CHARS' # enable ANSI color control characters in files
-alias ls='ls -G'
-alias l='ls -lFhG'
-alias ll='ls -laFhG'
+alias ls='ls -G --color=auto'
+alias l='ls -lFhG --color=auto'
+alias ll='ls -laFhG --color=auto'
 alias g='grep -InE --color=always'
 alias ig='grep -iInE --color=always'
 alias pwgen='pwgen --symbols --ambiguous 16'
