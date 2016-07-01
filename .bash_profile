@@ -69,9 +69,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# enable Ctrl-o on Mac OS X Lion
-/bin/stty discard '^-'
-
 export EDITOR="/usr/bin/emacs"
 
 export CVS_RSH=ssh
@@ -79,7 +76,7 @@ export RSH=ssh
 
 # projects
 # export PIN_HOME=/home/devietti/recherche/pin/source/tools/
-export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
 
 # set PATH
 
