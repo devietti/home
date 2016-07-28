@@ -1,0 +1,13 @@
+How to clone into the current working directory
+c/o http://stackoverflow.com/a/16811212
+
+# for read-only access
+git init .
+git remote add -t \* -f origin https://github.com/devietti/home.git
+git checkout master
+
+# for read-write access
+git init .
+git remote add -t \* -f origin git@github.com:devietti/home.git
+git checkout master
+
