@@ -46,7 +46,11 @@ export RSH=ssh
 
 # projects
 # export PIN_HOME=/home/devietti/recherche/pin/source/tools/
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+which javac > /dev/null
+if [ $? -eq 0 ]
+then
+    export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+fi
 
 # set PATH
 
@@ -69,3 +73,8 @@ unset PAGER
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+
+# SEAS-specific settings: these should not get committed
+. ~acgsge/sge/default/common/settings.sh
+umask 0007
