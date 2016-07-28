@@ -76,5 +76,5 @@ fi
 
 
 # SEAS-specific settings: these should not get committed
-. ~acgsge/sge/default/common/settings.sh
-umask 0007
+#. ~acgsge/sge/default/common/settings.sh
+#umask 0007
