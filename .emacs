@@ -29,9 +29,26 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
 (require 'ottmode)
+; flyspell
+(add-hook 'text-mode-hook 'turn-flyspell-on)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(defun turn-flyspell-on ()
+  "Force flyspell-mode on using a positive argument. For use in
+hooks. Automatically runs flyspell-buffer so that we see
+misspellings right away."
+  (interactive)
+  (flyspell-mode 1)
+  (flyspell-buffer))
+
+; editing LaTeX
+; c/o https://www.emacswiki.org/emacs/AUCTeX
+(load "auctex.el" nil t t)
+;(load "preview-latex.el" nil t t)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
 
 ;; this is usually only loaded when you open a .py file, but we want python-mode
 ;; for looking at various other python-syntax configuration files
