@@ -35,3 +35,7 @@ function path {
 function pathp {
     echo `pwd -P`/$1
 }
+
+function loc {
+    find . -name $1 | xargs wc -l
+}
