@@ -39,7 +39,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export EDITOR="/usr/bin/emacs"
+export EDITOR="/usr/bin/emacs -nw"
 
 export CVS_RSH=ssh
 export RSH=ssh
@@ -76,5 +76,5 @@ fi
 
 
 # SEAS-specific settings: these should not get committed
-#. ~acgsge/sge/default/common/settings.sh
-#umask 0007
+. ~acgsge/sge/default/common/settings.sh
+umask 0007
