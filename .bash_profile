@@ -73,8 +73,3 @@ unset PAGER
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-
-
-# SEAS-specific settings: these should not get committed
-. ~acgsge/sge/default/common/settings.sh
-umask 0007
