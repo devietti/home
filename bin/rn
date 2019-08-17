@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+from prompt_toolkit import prompt
+import sys, os
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print(f"usage: {sys.argv[0]} FILE")
+        sys.exit(1)
+        pass
+
+    newName = prompt(f"rename {sys.argv[1]} => ",
+                    default=f"{sys.argv[1]}",
+                    multiline=False,
+    )
+
+    if os.path.exists(newName):
+        overwrite = prompt(f"{newName} exists, overwrite (y/n)? ")
+        if overwrite != "y":
+            sys.exit(0)
+            pass
+        pass
+    os.replace(sys.argv[1], newName)
+
