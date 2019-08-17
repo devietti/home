@@ -2,23 +2,34 @@
 
 from prompt_toolkit import prompt
 import sys, os
+import argparse
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print(f"usage: {sys.argv[0]} FILE")
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-f',
+        action="store_true",
+        help='Overwrite destination if it exists. Default: prompt before overwriting.'
+    )
+    FLAGS, unparsed = parser.parse_known_args()
+
+    if len(unparsed) != 1:
+        parser.print_help()
         sys.exit(1)
         pass
-
-    newName = prompt(f"rename {sys.argv[1]} => ",
-                    default=f"{sys.argv[1]}",
+    existingName = unparsed[0]
+    
+    newName = prompt(f"rename {existingName} => ",
+                    default=f"{existingName}",
                     multiline=False,
     )
 
-    if os.path.exists(newName):
+    if os.path.exists(newName) and not FLAGS.f:
         overwrite = prompt(f"{newName} exists, overwrite (y/n)? ")
         if overwrite != "y":
             sys.exit(0)
             pass
         pass
-    os.replace(sys.argv[1], newName)
+    os.replace(existingName, newName)
 
