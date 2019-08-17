@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+import re, subprocess, sys
+
+if len(sys.argv) != 3:
+    print("usage:", sys.argv[0], "PATTERN BINARY")
+    print("  prints the disassembly for all functions in BINARY whose name(s) begin with the Python regex PATTERN")
+    sys.exit(1)
+
+funName = sys.argv[1]
+binary = sys.argv[2]
+
+# use streaming input to handle large files efficiently
+objdumpProc = subprocess.Popen("objdump -d "+binary, shell=True, universal_newlines=True, stdout=subprocess.PIPE)
+
+inFunction = False
+for line in objdumpProc.stdout:
+    if inFunction:
+        if "" == line.strip(): # end of function
+            inFunction = False
+        else:
+            print(line.strip())
+            pass
+        continue
+        
+    m = re.match('[0-9a-fA-F]+ [<](.*)[>]:', line)
+    if m is None:
+        continue
+    if not re.match(funName, m.group(1)):
+        continue
+    inFunction = True
+    print(line.strip())
+    pass
+
